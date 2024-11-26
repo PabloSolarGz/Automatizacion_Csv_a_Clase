@@ -10,6 +10,13 @@ import java.util.Properties;
 public class Browsers {
     private static WebDriver driver;
 
+    /**
+     * Obtiene una instancia de WebDriver según el navegador especificado.
+     * Si no está inicializado, lo crea; si ya existe, lo retorna.
+     *
+     * @param navegador el nombre del navegador (por ejemplo, "chrome").
+     * @return la instancia de WebDriver.
+     */
     public static WebDriver getDriver(String navegador) {
         if (driver == null) {
             switch (navegador.toLowerCase()) {
@@ -25,6 +32,24 @@ public class Browsers {
         return driver;
     }
 
+    /**
+     * Retorna la instancia existente del WebDriver.
+     * Si no se inicializó, lanza una excepción.
+     *
+     * @return la instancia actual de WebDriver.
+     */
+    public static WebDriver getDriverInstance() {
+        if (driver == null) {
+            throw new IllegalStateException("El WebDriver no ha sido inicializado. Usa getDriver primero.");
+        }
+        return driver;
+    }
+
+    /**
+     * Obtiene la ruta del driver de Chrome según el sistema operativo.
+     *
+     * @return la ruta del ChromeDriver configurada en config.properties.
+     */
     private static String getChromeDriverPath() {
         String os = System.getProperty("os.name").toLowerCase();
         String driverPathKey = os.contains("win") ? "chromedriver.win"
@@ -52,6 +77,11 @@ public class Browsers {
         }
     }
 
+    /**
+     * Configura las opciones específicas para el navegador Chrome.
+     *
+     * @return una instancia de ChromeOptions con las configuraciones necesarias.
+     */
     private static ChromeOptions getChromeOptions() {
         ChromeOptions options = new ChromeOptions();
         String os = System.getProperty("os.name").toLowerCase();
@@ -66,6 +96,9 @@ public class Browsers {
         return options;
     }
 
+    /**
+     * Cierra el navegador y libera los recursos del WebDriver.
+     */
     public static void cerrarNavegador() {
         if (driver != null) {
             driver.quit();

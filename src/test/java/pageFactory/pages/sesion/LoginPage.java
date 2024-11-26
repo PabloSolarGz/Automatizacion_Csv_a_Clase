@@ -8,13 +8,13 @@ import org.openqa.selenium.support.PageFactory;
 public class LoginPage {
 
     @FindBy(id = "normal_login_username")
-    private WebElement textUsuario;
+    WebElement textUsuario;
 
     @FindBy(id = "normal_login_password")
-    private WebElement textPassword;
+    WebElement textPassword;
 
     @FindBy(xpath = "//div/button[contains(@class, 'ant-btn ant-btn-primary ant-btn-block btn-form')]")
-    private WebElement botonLogin;
+    WebElement botonLogin;
 
     public LoginPage(WebDriver driver) {
         PageFactory.initElements(driver, this);
@@ -26,6 +26,6 @@ public class LoginPage {
         textPassword.clear();
         textPassword.sendKeys(password);
         botonLogin.click();
-        Thread.sleep(10000);
+        Thread.sleep(5000);
     }
 }
